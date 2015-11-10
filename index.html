@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <title>CSS Image Gallery</title>
+
+      <link rel="stylesheet" href="stylesheets/style.css" type="text/css">
+      <script type="text/javascript" src="js/jquery.js  "></script>
+
+      <!-- Add fancyBox -->
+      <link rel="stylesheet" href="fancybox/source/jquery.fancybox.css?v=2.1.5" type="text/css" media="screen" />
+      <script type="text/javascript" src="fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+      <!-- Optionally add helpers - button, thumbnail and/or media -->
+      <link rel="stylesheet" href="fancybox/source/helpers/jquery.fancybox-buttons.css?v=1.0.5" type="text/css" media="screen" />
+      <script type="text/javascript" src="fancybox/source/helpers/jquery.fancybox-buttons.js?v=1.0.5"></script>
+      <script type="text/javascript" src="fancybox/source/helpers/jquery.fancybox-media.js?v=1.0.6"></script>
+
+      <link rel="stylesheet" href="fancybox/source/helpers/jquery.fancybox-thumbs.css?v=1.0.7" type="text/css" media="screen" />
+      <script type="text/javascript" src="fancybox/source/helpers/jquery.fancybox-thumbs.js?v=1.0.7"></script>
+      <script>
+      	$(document).ready(function() {
+      		$(".fancybox").fancybox({
+            helpers:{
+              buttons:{}
+            } 
+      		});
+          $('.filter').on('click', function(){
+            var $this = $(this);
+            if(!$this.hasClass('active')){
+              $('.filter').removeClass('active');
+              $this.addClass('active'); //set active tab
+              //Get data-rel
+              var $filter = $this.data('rel');
+              $filter == 'all' ? 
+              $('.fancybox')
+              .attr('data-fancybox-group', 'gallery')
+              .not(':visible')
+              .fadeIn()
+              : // else
+              $('.fancybox')
+              .fadeOut(0)
+              .filter(function(){
+                return $(this).data('filter') == $filter;
+              })
+              .attr('data-fancybox-group', $filter)
+              .fadeIn(1000)
+            } //if
+            
+          });
+      	});
+      </script>
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <img src="img/logo.png" class="logo">
+      </div>
+    </header>
+    <div class="container">
+      <section>
+        <div class="gallery">
+          <a class="fancybox" data-fancybox-group="gallery" data-filter="category1" href="img/image1.jpg"><img src="img/image1.jpg"/></a>
+          <a class="fancybox" data-fancybox-group="gallery" data-filter="category2" href="img/image2.jpg"><img src="img/image2.jpg"/></a>
+          <a class="fancybox" data-fancybox-group="gallery" data-filter="category1" href="img/image3.jpg"><img src="img/image3.jpg"/></a>
+          <a class="fancybox" data-fancybox-group="gallery" data-filter="category2" href="img/image4.jpg"><img src="img/image4.jpg"/></a>
+          <a class="fancybox" data-fancybox-group="gallery" data-filter="category1" href="img/image5.jpg"><img src="img/image5.jpg"/></a>
+          <a class="fancybox" data-fancybox-group="gallery" data-filter="category2" href="img/image6.jpg"><img src="img/image6.jpg"/></a>
+        </div>
+      </section>
+      <aside>
+        <nav>
+          <a data-rel="all" href="javascript:;" class="filter active">View&nbsp;All</a>
+          <a data-rel="category1" href="javascript:;" class="filter">Category&nbsp;1</a>
+          <a data-rel="category2" href="javascript:;" class="filter">Category&nbsp; 2</a>
+        </nav>
+      </aside>
+    </div>
+    <footer>
+      <div class="container">
+        <p>Copyright &copy; 2015</p>
+      </div>
+    </footer>
+  </body>
+</html>
